@@ -8,7 +8,7 @@
   <style>
     body {
       margin: 0;
-      background: #000;
+      background: #000; /* Todo negro */
       color: #00aaff;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
@@ -31,6 +31,12 @@
       font-size: 32px;
       text-align: center;
       color: #fff;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00aaff; }
+      to { text-shadow: 0 0 25px #00ffff; }
     }
 
     .loader {
@@ -74,7 +80,8 @@
       box-sizing: border-box;
     }
 
-    button.generate-btn {
+    /* Botón de generación */
+    button.gen-btn {
       margin-top: 20px;
       width: 100%;
       padding: 12px;
@@ -88,41 +95,28 @@
       transition: 0.2s;
     }
 
-    button.generate-btn:hover {
+    button.gen-btn:hover {
       background: #0088cc;
     }
 
-    /* Sección inferior (Satured Hub + Discord) */
-    .footer-section {
+    /* Sección de Protección y Discord */
+    .footer-info {
       margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #222;
       color: #fff;
     }
 
-    .footer-section p {
-      font-size: 15px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    /* Botón de Discord */
     .discord-btn {
-      background: #5865F2; /* Azul oficial de Discord */
-      border: none;
+      margin-top: 15px;
+      background: #5865F2; /* Azul Discord */
+      color: white;
+      text-decoration: none;
+      padding: 12px;
       border-radius: 8px;
-      padding: 12px 20px;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;
-      color: white;
       font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.2s;
-      width: 100%;
-      box-sizing: border-box;
+      transition: 0.3s;
     }
 
     .discord-btn:hover {
@@ -140,7 +134,6 @@
       margin-top: 25px;
       word-break: break-all;
       font-size: 14px;
-      color: #fff;
     }
 
     .box {
@@ -152,28 +145,18 @@
       font-size: 13px;
       overflow-x: auto;
       text-align: left;
-      color: #00aaff;
     }
 
-    a {
-      color: #00aaff;
-      text-decoration: none;
-    }
-
-    button.copyBtn {
+    .copyBtn {
       margin-top: 10px;
+      background: #00ffcc;
+      color: black;
       width: 100%;
       padding: 10px;
-      background: #00aaff;
       border: none;
-      color: black;
-      font-weight: bold;
       border-radius: 8px;
+      font-weight: bold;
       cursor: pointer;
-    }
-    
-    button.copyBtn:hover {
-      background: #0088cc;
     }
 
     .success {
@@ -197,25 +180,21 @@
 
     <textarea id="textInput" placeholder="Paste your Lua script here..."></textarea>
     
-    <button class="generate-btn" onclick="generate()">Do loadingstring</button>
+    <button class="gen-btn" onclick="generate()">do loadingstring</button>
 
     <div class="result" id="result"></div>
 
-    <div class="footer-section">
-      <p>This code it's protected by Satured Hub</p>
-      
+    <div class="footer-info">
+      <p>this code it's protected by Satured Hub</p>
       <a href="https://discord.gg/KfY9ZC23R" target="_blank" class="discord-btn">
-        <svg viewBox="0 0 127.14 96.36">
-          <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-19.32-72.15ZM42.56,65.36c-5.36,0-9.76-4.83-9.76-10.74s4.31-10.74,9.76-10.74c5.49,0,9.85,4.88,9.76,10.74,0,5.91-4.31,10.74-9.76,10.74Zm42,0c-5.36,0-9.76-4.83-9.76-10.74s4.31-10.74,9.76-10.74c5.49,0,9.85,4.88,9.76,10.74,0,5.91-4.31,10.74-9.76,10.74Z"/>
-        </svg>
-        Join Satured Hub Discord
+        <svg viewBox="0 0 127.14 96.36"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-19.32-72.15ZM42.56,65.36c-5.36,0-9.76-4.83-9.76-10.74s4.31-10.74,9.76-10.74c5.49,0,9.85,4.88,9.76,10.74,0,5.91-4.31,10.74-9.76,10.74Zm42,0c-5.36,0-9.76-4.83-9.76-10.74s4.31-10.74,9.76-10.74c5.49,0,9.85,4.88,9.76,10.74,0,5.91-4.31,10.74-9.76,10.74Z"/></svg>
+        Discord Satured Hub
       </a>
     </div>
-
   </div>
 
   <script>
-    // Splash screen delay
+    // Tiempo de carga del splash original
     setTimeout(() => {
       document.getElementById("splash").style.display = "none";
       document.getElementById("mainContent").style.display = "block";
@@ -241,7 +220,6 @@
           body: JSON.stringify({ content })
         });
 
-        // LÓGICA RESTAURADA EXACTAMENTE COMO LA TENÍAS ANTES
         const data = await response.json();
 
         if (!response.ok) {
@@ -253,12 +231,12 @@
         const loadingString = `loadstring(game:HttpGet("${rawUrl}"))()`;
 
         resultDiv.innerHTML = `
-          <div>
+          <div style="color:white;">
             ✅ <b>Loadstring generated!:</b><br>
-            <a href="${rawUrl}" target="_blank">${rawUrl}</a>
+            <a href="${rawUrl}" target="_blank" style="color:#00ffcc;">${rawUrl}</a>
           </div>
 
-          <div style="margin-top:20px;">
+          <div style="margin-top:20px; color:white;">
             🔥 <b>LoadingString:</b>
             <div class="box" id="loadingBox">${loadingString}</div>
             <button class="copyBtn" onclick="copyLoading()">COPY</button>
