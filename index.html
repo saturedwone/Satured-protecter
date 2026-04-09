@@ -8,8 +8,8 @@
   <style>
     body {
       margin: 0;
-      background: #000000;
-      color: #ffffff;
+      background: #000;
+      color: #00aaff;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
@@ -19,7 +19,7 @@
       position: fixed;
       width: 100%;
       height: 100%;
-      background: #000000;
+      background: #000;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -30,14 +30,14 @@
     #splash h1 {
       font-size: 32px;
       text-align: center;
-      color: #ffffff;
+      color: #fff;
     }
 
     .loader {
       margin-top: 30px;
       width: 200px;
       height: 6px;
-      background: #222222;
+      background: #111;
       border-radius: 10px;
       overflow: hidden;
     }
@@ -45,7 +45,7 @@
     .loader-bar {
       height: 100%;
       width: 0%;
-      background: #ffffff;
+      background: #00aaff;
       animation: load 2.5s forwards;
     }
 
@@ -65,24 +65,23 @@
     textarea {
       width: 100%;
       height: 150px;
-      background: #111111;
-      border: 1px solid #444444;
-      color: #ffffff;
+      background: #111;
+      border: 1px solid #00aaff;
+      color: #00aaff;
       padding: 10px;
       border-radius: 8px;
       resize: none;
       box-sizing: border-box;
     }
 
-    /* Estilo del botón principal */
     button.generate-btn {
       margin-top: 20px;
       width: 100%;
       padding: 12px;
-      background: #222222;
-      border: 1px solid #444444;
+      background: #00aaff;
+      border: none;
       border-radius: 8px;
-      color: white;
+      color: black;
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
@@ -90,14 +89,15 @@
     }
 
     button.generate-btn:hover {
-      background: #333333;
+      background: #0088cc;
     }
 
     /* Sección inferior (Satured Hub + Discord) */
     .footer-section {
       margin-top: 40px;
       padding-top: 20px;
-      border-top: 1px solid #222222;
+      border-top: 1px solid #222;
+      color: #fff;
     }
 
     .footer-section p {
@@ -140,21 +140,23 @@
       margin-top: 25px;
       word-break: break-all;
       font-size: 14px;
+      color: #fff;
     }
 
     .box {
-      background: #111111;
-      border: 1px solid #444444;
+      background: #111;
+      border: 1px solid #00aaff;
       border-radius: 8px;
       padding: 10px;
       margin-top: 10px;
       font-size: 13px;
       overflow-x: auto;
       text-align: left;
+      color: #00aaff;
     }
 
-    a.link-raw {
-      color: #5865F2;
+    a {
+      color: #00aaff;
       text-decoration: none;
     }
 
@@ -162,15 +164,16 @@
       margin-top: 10px;
       width: 100%;
       padding: 10px;
-      background: #333333;
-      border: 1px solid #555555;
-      color: white;
+      background: #00aaff;
+      border: none;
+      color: black;
+      font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
     }
     
     button.copyBtn:hover {
-      background: #444444;
+      background: #0088cc;
     }
 
     .success {
@@ -190,9 +193,9 @@
   </div>
 
   <div class="container" id="mainContent">
-    <h2>Satured Anti 🔒</h2>
+    <h2 style="color: #fff;">Satured Anti 🔒</h2>
 
-    <textarea id="textInput" placeholder="Paste your script here..."></textarea>
+    <textarea id="textInput" placeholder="Paste your Lua script here..."></textarea>
     
     <button class="generate-btn" onclick="generate()">Do loadingstring</button>
 
@@ -224,8 +227,8 @@
 
       let content = textArea.value;
 
-      if (!content.trim()) {
-        alert("Escribe un script primero para generar el loadstring.");
+      if (!content) {
+        alert("Write your Lua script");
         return;
       }
 
@@ -238,19 +241,21 @@
           body: JSON.stringify({ content })
         });
 
+        // LÓGICA RESTAURADA EXACTAMENTE COMO LA TENÍAS ANTES
+        const data = await response.json();
+
         if (!response.ok) {
-          resultDiv.innerHTML = "❌ Error generating (Comprueba el backend de tu servidor)";
+          resultDiv.innerHTML = "❌ Error generating";
           return;
         }
 
-        const data = await response.json();
         const rawUrl = data.raw;
         const loadingString = `loadstring(game:HttpGet("${rawUrl}"))()`;
 
         resultDiv.innerHTML = `
-          <div style="margin-top: 20px;">
+          <div>
             ✅ <b>Loadstring generated!:</b><br>
-            <a href="${rawUrl}" target="_blank" class="link-raw">${rawUrl}</a>
+            <a href="${rawUrl}" target="_blank">${rawUrl}</a>
           </div>
 
           <div style="margin-top:20px;">
@@ -262,7 +267,7 @@
         `;
 
       } catch (err) {
-        resultDiv.innerHTML = "❌ Error de conexión: El servidor (/api/generate) no responde.";
+        resultDiv.innerHTML = "❌ Connection error";
       }
     }
 
